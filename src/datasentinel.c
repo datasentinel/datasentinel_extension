@@ -20,7 +20,11 @@ static post_parse_analyze_hook_type prev_post_parse_analyze_hook = NULL;
 
 /* Our hooks */
 static void datasentinel_shmem_startup(void);
-static void ash_post_parse_analyze(ParseState *pstate, Query *query);
+#if PG_VERSION_NUM >= 140000
+static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate);
+#else
+static void ash_post_parse_analyze(ParseState *pstate, Query *query)
+#endif
 
 typedef struct procEntry
 {
@@ -42,13 +46,19 @@ get_max_procs_count(void)
 	return count;
 }
 
-static void
-ash_post_parse_analyze(ParseState *pstate, Query *query)
+#if PG_VERSION_NUM >= 140000
+static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate)
+#else
+static void ash_post_parse_analyze(ParseState *pstate, Query *query)
+#endif
 {
 
 	if (prev_post_parse_analyze_hook)
+	    #if PG_VERSION_NUM >= 140000
+        prev_post_parse_analyze_hook(pstate, query, jstate);
+        #else
 		prev_post_parse_analyze_hook(pstate, query);
-
+		#endif
 	if (MyProc)
 	{
 		int i = MyProc - ProcGlobal->allProcs;
