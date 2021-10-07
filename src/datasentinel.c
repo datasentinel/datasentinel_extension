@@ -21,9 +21,9 @@ static post_parse_analyze_hook_type prev_post_parse_analyze_hook = NULL;
 /* Our hooks */
 static void datasentinel_shmem_startup(void);
 #if PG_VERSION_NUM >= 140000
-static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate);
+	static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate);
 #else
-static void ash_post_parse_analyze(ParseState *pstate, Query *query)
+	static void ash_post_parse_analyze(ParseState *pstate, Query *query);
 #endif
 
 typedef struct procEntry
@@ -47,9 +47,9 @@ get_max_procs_count(void)
 }
 
 #if PG_VERSION_NUM >= 140000
-static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate)
+	static void ash_post_parse_analyze(ParseState *pstate, Query *query, JumbleState *jstate)
 #else
-static void ash_post_parse_analyze(ParseState *pstate, Query *query)
+	static void ash_post_parse_analyze(ParseState *pstate, Query *query)
 #endif
 {
 
