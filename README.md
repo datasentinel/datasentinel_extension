@@ -1,7 +1,8 @@
 
 ![Datasentinel](https://www.datasentinel.io/images/head.jpg)
 
-# This extension is deprecated since the POstgreSQL version 14
+# This extension is deprecated since the version 14 of PostgreSQL
+<hr>
 
 ## Datasentinel extension  
 <br>
