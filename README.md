@@ -7,7 +7,7 @@
 ### This extension gets the queryid (pg_stat_statements) from backends (pg_stat_activity) running queries
 <br>
 
-#### The extension is OPTIONAL, only required if you plan to use the sessions sampling feature every second with datasentinel.
+#### The extension is OPTIONAL.
 
 The role of this extension is to get the queryid (pg_stat_statements) from active sessions (pg_stat_activity)
 Warning
